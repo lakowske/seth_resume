@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# Get the absolute path of the directory where the script is located
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
+function help() {
+    echo "Usage: $0 {help|build|pdf|all}"
+}
+
+function html() {
+    htlatex "$DIR/../seth_resume.tex"
+}
+
+function pdf() {
+    pdflatex "$DIR/../seth_resume.tex"
+}
+
+function all() {
+    html
+    pdf
+}
+
+if [ $# -eq 0 ]; then
+    help
+else
+    case "$1" in
+        help)
+            help
+            ;;
+        html)
+            html
+            ;;
+        pdf)
+            pdf
+            ;;
+        all)
+            all
+            ;;
+        *)
+            echo "Invalid command"
+            help
+            ;;
+    esac
+fi
